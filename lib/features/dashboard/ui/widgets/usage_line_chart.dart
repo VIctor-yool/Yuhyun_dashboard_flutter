@@ -1,10 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_design_system.dart';
 
 class UsageLineChart extends StatelessWidget {
   const UsageLineChart({super.key});
-
-  static const _usageColor = Color(0xFF4A90E2);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class UsageLineChart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 200,
+          height: AppDesignSystem.chartHeight,
           child: LineChart(
             LineChartData(
               minX: 0,
@@ -23,8 +22,8 @@ class UsageLineChart extends StatelessWidget {
               gridData: FlGridData(
                 show: true,
                 drawVerticalLine: false,
-                getDrawingHorizontalLine: (value) => FlLine(
-                  color: Colors.grey.shade200,
+                getDrawingHorizontalLine: (_) => const FlLine(
+                  color: AppDesignSystem.chartGrid,
                   strokeWidth: 1,
                 ),
               ),
@@ -35,9 +34,9 @@ class UsageLineChart extends StatelessWidget {
                     reservedSize: 36,
                     getTitlesWidget: (value, meta) => Text(
                       value.toStringAsFixed(4),
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 10,
+                      style: const TextStyle(
+                        color: AppDesignSystem.chartAxis,
+                        fontSize: AppDesignSystem.fontSizeXs,
                       ),
                     ),
                   ),
@@ -50,12 +49,12 @@ class UsageLineChart extends StatelessWidget {
                       const labels = ['5/21', '5/28', '6/4', '6/11', '6/18', '6/20'];
                       final idx = value.toInt().clamp(0, 5);
                       return Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: AppDesignSystem.spacingSm),
                         child: Text(
                           labels[idx],
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontSize: 10,
+                          style: const TextStyle(
+                            color: AppDesignSystem.chartAxis,
+                            fontSize: AppDesignSystem.fontSizeXs,
                           ),
                         ),
                       );
@@ -76,14 +75,14 @@ class UsageLineChart extends StatelessWidget {
                     FlSpot(5, 0.002),
                   ],
                   isCurved: true,
-                  color: _usageColor,
+                  color: AppDesignSystem.chartLineBlue,
                   barWidth: 2.5,
                   dotData: FlDotData(
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
                       radius: 3,
-                      color: _usageColor,
+                      color: AppDesignSystem.chartLineBlue,
                       strokeWidth: 1,
                       strokeColor: Colors.white,
                     ),
@@ -94,19 +93,25 @@ class UsageLineChart extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppDesignSystem.spacingSm),
         Row(
           children: [
             Container(
               width: 12,
               height: 12,
               decoration: BoxDecoration(
-                color: _usageColor,
+                color: AppDesignSystem.chartLineBlue,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
             const SizedBox(width: 6),
-            Text('데이터 (MB)', style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+            const Text(
+              '데이터 (MB)',
+              style: TextStyle(
+                fontSize: AppDesignSystem.fontSizeXs,
+                color: AppDesignSystem.textSecondary,
+              ),
+            ),
           ],
         ),
       ],

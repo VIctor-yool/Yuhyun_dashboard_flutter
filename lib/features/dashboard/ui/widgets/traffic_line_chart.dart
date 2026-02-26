@@ -1,10 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_design_system.dart';
 
 class TrafficLineChart extends StatelessWidget {
   const TrafficLineChart({super.key});
-
-  static const _trafficColor = Color(0xFFFF8C42);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class TrafficLineChart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 200,
+          height: AppDesignSystem.chartHeight,
           child: LineChart(
             LineChartData(
               minX: 0,
@@ -24,8 +23,8 @@ class TrafficLineChart extends StatelessWidget {
                 show: true,
                 drawVerticalLine: false,
                 horizontalInterval: 1,
-                getDrawingHorizontalLine: (value) => FlLine(
-                  color: Colors.grey.shade200,
+                getDrawingHorizontalLine: (_) => const FlLine(
+                  color: AppDesignSystem.chartGrid,
                   strokeWidth: 1,
                 ),
               ),
@@ -36,9 +35,9 @@ class TrafficLineChart extends StatelessWidget {
                     reservedSize: 28,
                     getTitlesWidget: (value, meta) => Text(
                       value.toInt().toString(),
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 11,
+                      style: const TextStyle(
+                        color: AppDesignSystem.chartAxis,
+                        fontSize: AppDesignSystem.fontSizeXs,
                       ),
                     ),
                   ),
@@ -51,12 +50,12 @@ class TrafficLineChart extends StatelessWidget {
                       const labels = ['5/21', '5/28', '6/4', '6/11', '6/18', '6/20'];
                       final idx = value.toInt().clamp(0, 5);
                       return Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: AppDesignSystem.spacingSm),
                         child: Text(
                           labels[idx],
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontSize: 10,
+                          style: const TextStyle(
+                            color: AppDesignSystem.chartAxis,
+                            fontSize: AppDesignSystem.fontSizeXs,
                           ),
                         ),
                       );
@@ -77,14 +76,14 @@ class TrafficLineChart extends StatelessWidget {
                     FlSpot(5, 5),
                   ],
                   isCurved: true,
-                  color: _trafficColor,
+                  color: AppDesignSystem.chartLineOrange,
                   barWidth: 2.5,
                   dotData: FlDotData(
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
                       radius: 3,
-                      color: _trafficColor,
+                      color: AppDesignSystem.chartLineOrange,
                       strokeWidth: 1,
                       strokeColor: Colors.white,
                     ),
@@ -95,19 +94,25 @@ class TrafficLineChart extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppDesignSystem.spacingSm),
         Row(
           children: [
             Container(
               width: 12,
               height: 12,
               decoration: BoxDecoration(
-                color: _trafficColor,
+                color: AppDesignSystem.chartLineOrange,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
             const SizedBox(width: 6),
-            Text('트래픽', style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+            const Text(
+              '트래픽',
+              style: TextStyle(
+                fontSize: AppDesignSystem.fontSizeXs,
+                color: AppDesignSystem.textSecondary,
+              ),
+            ),
           ],
         ),
       ],

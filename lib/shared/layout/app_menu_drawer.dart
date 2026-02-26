@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_design_system.dart';
 
 enum AppMenuItem {
   integratedDashboard('통합 대시보드', Icons.home),
@@ -29,7 +30,8 @@ class AppMenuDrawer extends StatelessWidget {
       padding: EdgeInsets.zero,
       children: [
         DrawerHeader(
-          decoration: BoxDecoration(color: Colors.grey.shade200),
+          padding: const EdgeInsets.all(AppDesignSystem.spacingMd),
+          decoration: const BoxDecoration(color: AppDesignSystem.sidebarBg),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -38,49 +40,58 @@ class AppMenuDrawer extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade700,
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppDesignSystem.slate700,
+                  borderRadius: AppDesignSystem.borderRadiusLg,
                 ),
                 child: const Center(
                   child: Text(
-                    'N',
+                    '유',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                      fontSize: AppDesignSystem.fontSizeTitle,
+                      fontWeight: AppDesignSystem.fontWeightBold,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
-              Text(
-                '메뉴',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+              const SizedBox(height: AppDesignSystem.spacingMd),
+              const Text(
+                '유현건설',
+                style: TextStyle(
+                  color: AppDesignSystem.textTitle,
+                  fontSize: AppDesignSystem.fontSizeSm,
+                  fontWeight: AppDesignSystem.fontWeightBold,
                 ),
               ),
             ],
           ),
         ),
-        ...AppMenuItem.values.map((item) {
-          final isSelected = selectedItem == item;
-          return ListTile(
-            leading: Icon(
-              item.icon,
-              color: isSelected ? Theme.of(context).colorScheme.primary : null,
-            ),
-            title: Text(
-              item.label,
-              style: TextStyle(
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? Theme.of(context).colorScheme.primary : null,
-              ),
-            ),
-            selected: isSelected,
-            selectedTileColor: Colors.grey.shade200,
-            onTap: () => onItemSelected(item),
-          );
-        }),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppDesignSystem.spacingSm),
+          child: Column(
+            children: AppMenuItem.values.map((item) {
+              final isSelected = selectedItem == item;
+              return ListTile(
+                leading: Icon(
+                  item.icon,
+                  size: 20,
+                  color: isSelected ? AppDesignSystem.blue600 : AppDesignSystem.textSecondary,
+                ),
+                title: Text(
+                  item.label,
+                  style: TextStyle(
+                    fontWeight: isSelected ? AppDesignSystem.fontWeightBold : AppDesignSystem.fontWeightNormal,
+                    color: isSelected ? AppDesignSystem.blue600 : AppDesignSystem.textBody,
+                    fontSize: AppDesignSystem.fontSizeSm,
+                  ),
+                ),
+                selected: isSelected,
+                selectedTileColor: AppDesignSystem.selectedBg,
+                onTap: () => onItemSelected(item),
+              );
+            }).toList(),
+          ),
+        ),
       ],
     );
   }

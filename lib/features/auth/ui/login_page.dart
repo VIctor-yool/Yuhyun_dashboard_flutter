@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_design_system.dart';
 
-/// 로그인/회원가입 페이지 (웹 /login 대응)
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -15,39 +15,46 @@ class LoginPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(AppDesignSystem.spacingLg),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               '로그인 / 회원가입',
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: TextStyle(
+                fontSize: AppDesignSystem.fontSizeTitle,
+                fontWeight: AppDesignSystem.fontWeightBold,
+                color: AppDesignSystem.textTitle,
+              ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
-            const TextField(
-              decoration: InputDecoration(
+            const SizedBox(height: AppDesignSystem.spacingXl),
+            TextField(
+              decoration: const InputDecoration(
                 labelText: '이메일',
-                border: OutlineInputBorder(),
+                hintText: '이메일을 입력하세요',
               ),
             ),
-            const SizedBox(height: 16),
-            const TextField(
+            const SizedBox(height: AppDesignSystem.spacingMd),
+            TextField(
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: '비밀번호',
-                border: OutlineInputBorder(),
+                hintText: '비밀번호를 입력하세요',
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppDesignSystem.spacingLg),
             FilledButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('로그인'),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppDesignSystem.spacingMd),
             OutlinedButton(
               onPressed: () => Navigator.pop(context),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: AppDesignSystem.borderDefault),
+              ),
               child: const Text('회원가입'),
             ),
           ],

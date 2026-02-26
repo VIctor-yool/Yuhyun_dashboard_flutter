@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_design_system.dart';
 import 'widgets/dashboard_widgets.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -7,18 +8,18 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppDesignSystem.spacingLg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildKpiCards(),
-          const SizedBox(height: 28),
+          const SizedBox(height: AppDesignSystem.spacingXl),
           _buildTrafficSection(),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDesignSystem.spacingXl),
           _buildUsageSection(),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDesignSystem.spacingXl),
           _buildTrafficTrendSection(),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppDesignSystem.spacingXl),
           _buildMonitoringSection(),
         ],
       ),
@@ -45,8 +46,16 @@ class DashboardScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: "전체 앱 트래픽 발생량", onRefresh: () {}),
-        const SizedBox(height: 12),
-        const TrafficLineChart(),
+        const SizedBox(height: AppDesignSystem.spacingMd),
+        Container(
+          padding: const EdgeInsets.all(AppDesignSystem.spacingMd),
+          decoration: BoxDecoration(
+            color: AppDesignSystem.cardBg,
+            borderRadius: AppDesignSystem.borderRadiusLg,
+            border: Border.all(color: AppDesignSystem.borderDefault),
+          ),
+          child: const TrafficLineChart(),
+        ),
       ],
     );
   }
@@ -56,8 +65,16 @@ class DashboardScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: "전체 앱 사용량", onRefresh: () {}),
-        const SizedBox(height: 12),
-        const UsageLineChart(),
+        const SizedBox(height: AppDesignSystem.spacingMd),
+        Container(
+          padding: const EdgeInsets.all(AppDesignSystem.spacingMd),
+          decoration: BoxDecoration(
+            color: AppDesignSystem.cardBg,
+            borderRadius: AppDesignSystem.borderRadiusLg,
+            border: Border.all(color: AppDesignSystem.borderDefault),
+          ),
+          child: const UsageLineChart(),
+        ),
       ],
     );
   }
@@ -67,8 +84,16 @@ class DashboardScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: "상위 5개 사용 앱 트래픽 추이 비교", onRefresh: () {}),
-        const SizedBox(height: 12),
-        const TrafficTrendChart(),
+        const SizedBox(height: AppDesignSystem.spacingMd),
+        Container(
+          padding: const EdgeInsets.all(AppDesignSystem.spacingMd),
+          decoration: BoxDecoration(
+            color: AppDesignSystem.cardBg,
+            borderRadius: AppDesignSystem.borderRadiusLg,
+            border: Border.all(color: AppDesignSystem.borderDefault),
+          ),
+          child: const TrafficTrendChart(),
+        ),
       ],
     );
   }
@@ -78,8 +103,16 @@ class DashboardScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: "운영 모니터링", onRefresh: () {}),
-        const SizedBox(height: 12),
-        const DonutChartWidget(),
+        const SizedBox(height: AppDesignSystem.spacingMd),
+        Container(
+          padding: const EdgeInsets.all(AppDesignSystem.spacingMd),
+          decoration: BoxDecoration(
+            color: AppDesignSystem.cardBg,
+            borderRadius: AppDesignSystem.borderRadiusLg,
+            border: Border.all(color: AppDesignSystem.borderDefault),
+          ),
+          child: const DonutChartWidget(),
+        ),
       ],
     );
   }

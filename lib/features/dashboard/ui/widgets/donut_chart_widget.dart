@@ -1,14 +1,15 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_design_system.dart';
 
 class DonutChartWidget extends StatelessWidget {
   const DonutChartWidget({super.key});
 
   static const _colors = [
-    Color(0xFF4A90E2),   // 미정 - 파랑
-    Color(0xFFFF8C42),   // 실행중 - 주황
-    Color(0xFF7ED321),   // 실행중(경고) - 연두
-    Color(0xFF417505),   // 중지됨 - 진녹
+    AppDesignSystem.pieUndefined,
+    AppDesignSystem.pieRunning,
+    AppDesignSystem.pieWarning,
+    AppDesignSystem.pieStopped,
   ];
 
   static const _labels = ['미정', '실행 중', '실행 중 (경고)', '중지됨'];
@@ -19,7 +20,7 @@ class DonutChartWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 200,
+          height: AppDesignSystem.chartHeight,
           child: PieChart(
             PieChartData(
               centerSpaceRadius: 50,
@@ -57,10 +58,10 @@ class DonutChartWidget extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppDesignSystem.spacingMd),
         Wrap(
-          spacing: 16,
-          runSpacing: 8,
+          spacing: AppDesignSystem.spacingMd,
+          runSpacing: AppDesignSystem.spacingSm,
           children: List.generate(4, (i) => Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -73,19 +74,25 @@ class DonutChartWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 6),
-              Text(_labels[i], style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+              Text(
+                _labels[i],
+                style: const TextStyle(
+                  fontSize: AppDesignSystem.fontSizeXs,
+                  color: AppDesignSystem.textSecondary,
+                ),
+              ),
             ],
           )),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppDesignSystem.spacingMd),
         GestureDetector(
           onTap: () {},
-          child: Text(
+          child: const Text(
             '상세 보기',
             style: TextStyle(
-              fontSize: 14,
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.w500,
+              fontSize: AppDesignSystem.fontSizeSm,
+              color: AppDesignSystem.blue600,
+              fontWeight: AppDesignSystem.fontWeightMedium,
               decoration: TextDecoration.underline,
             ),
           ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_design_system.dart';
 import '../../features/dashboard/ui/dashboard_screen.dart';
-import '../../features/dashboard/ui/placeholder_screen.dart';
+import '../../features/dashboard/ui/monitoring_screen.dart';
+import '../../features/dashboard/ui/alerts_screen.dart';
+import '../../features/dashboard/ui/qr_screen.dart';
+import '../../features/dashboard/ui/reports_screen.dart';
 import '../../features/auth/ui/login_page.dart';
 import 'app_menu_drawer.dart';
 
@@ -19,13 +23,13 @@ class _AppScaffoldState extends State<AppScaffold> {
       case AppMenuItem.integratedDashboard:
         return const DashboardScreen();
       case AppMenuItem.realtimeMonitoring:
-        return PlaceholderScreen(title: AppMenuItem.realtimeMonitoring.label);
+        return const MonitoringScreen();
       case AppMenuItem.alerts:
-        return PlaceholderScreen(title: AppMenuItem.alerts.label);
+        return const AlertsScreen();
       case AppMenuItem.qrLookup:
-        return PlaceholderScreen(title: AppMenuItem.qrLookup.label);
+        return const QrScreen();
       case AppMenuItem.autoReport:
-        return PlaceholderScreen(title: AppMenuItem.autoReport.label);
+        return const ReportsScreen();
     }
   }
 
@@ -40,6 +44,9 @@ class _AppScaffoldState extends State<AppScaffold> {
       appBar: AppBar(
         title: Text(_currentMenu.label),
         elevation: 0,
+        backgroundColor: AppDesignSystem.bgPrimary,
+        foregroundColor: AppDesignSystem.textTitle,
+        toolbarHeight: AppDesignSystem.mobileAppBarHeight,
         actions: [
           TextButton(
             onPressed: () {
@@ -62,6 +69,7 @@ class _AppScaffoldState extends State<AppScaffold> {
         ],
       ),
       endDrawer: Drawer(
+        backgroundColor: AppDesignSystem.sidebarBg,
         child: AppMenuDrawer(
           selectedItem: _currentMenu,
           onItemSelected: _onMenuSelected,

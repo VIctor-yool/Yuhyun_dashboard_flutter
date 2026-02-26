@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_design_system.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -17,19 +18,24 @@ class SectionHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontSize: AppDesignSystem.fontSizeSm,
+            fontWeight: AppDesignSystem.fontWeightSemibold,
+            color: AppDesignSystem.textTitle,
+          ),
         ),
         GestureDetector(
-            onTap: onRefresh,
-            child: Text(
-              '새로고침',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey.shade600,
-                decoration: TextDecoration.underline,
-              ),
+          onTap: onRefresh,
+          child: const Text(
+            '새로고침',
+            style: TextStyle(
+              fontSize: AppDesignSystem.fontSizeSm,
+              color: AppDesignSystem.textSecondary,
+              fontWeight: AppDesignSystem.fontWeightNormal,
+              decoration: TextDecoration.underline,
             ),
           ),
+        ),
       ],
     );
   }

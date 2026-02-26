@@ -1,11 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_design_system.dart';
 
-/// 상위 5개 사용 앱 트래픽 추이 비교 (웹 TrafficTrendChart 대응)
 class TrafficTrendChart extends StatelessWidget {
   const TrafficTrendChart({super.key});
-
-  static const _color = Color(0xFF4A90E2);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +11,7 @@ class TrafficTrendChart extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 200,
+          height: AppDesignSystem.chartHeight,
           child: LineChart(
             LineChartData(
               minX: 0,
@@ -25,8 +23,8 @@ class TrafficTrendChart extends StatelessWidget {
                 show: true,
                 drawVerticalLine: false,
                 horizontalInterval: 1,
-                getDrawingHorizontalLine: (value) => FlLine(
-                  color: Colors.grey.shade200,
+                getDrawingHorizontalLine: (_) => const FlLine(
+                  color: AppDesignSystem.chartGrid,
                   strokeWidth: 1,
                 ),
               ),
@@ -37,9 +35,9 @@ class TrafficTrendChart extends StatelessWidget {
                     reservedSize: 28,
                     getTitlesWidget: (value, meta) => Text(
                       value.toInt().toString(),
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 11,
+                      style: const TextStyle(
+                        color: AppDesignSystem.chartAxis,
+                        fontSize: AppDesignSystem.fontSizeXs,
                       ),
                     ),
                   ),
@@ -52,12 +50,12 @@ class TrafficTrendChart extends StatelessWidget {
                       const labels = ['5/21', '5/28', '6/4', '6/11', '6/18', '6/20'];
                       final idx = value.toInt().clamp(0, 5);
                       return Padding(
-                        padding: const EdgeInsets.only(top: 8),
+                        padding: const EdgeInsets.only(top: AppDesignSystem.spacingSm),
                         child: Text(
                           labels[idx],
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontSize: 10,
+                          style: const TextStyle(
+                            color: AppDesignSystem.chartAxis,
+                            fontSize: AppDesignSystem.fontSizeXs,
                           ),
                         ),
                       );
@@ -78,14 +76,14 @@ class TrafficTrendChart extends StatelessWidget {
                     FlSpot(5, 4),
                   ],
                   isCurved: true,
-                  color: _color,
+                  color: AppDesignSystem.chartLineBlue,
                   barWidth: 2.5,
                   dotData: FlDotData(
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
                       radius: 3,
-                      color: _color,
+                      color: AppDesignSystem.chartLineBlue,
                       strokeWidth: 1,
                       strokeColor: Colors.white,
                     ),
@@ -96,19 +94,25 @@ class TrafficTrendChart extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppDesignSystem.spacingSm),
         Row(
           children: [
             Container(
               width: 12,
               height: 12,
               decoration: BoxDecoration(
-                color: _color,
+                color: AppDesignSystem.chartLineBlue,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
             const SizedBox(width: 6),
-            Text('트래픽', style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+            const Text(
+              '트래픽',
+              style: TextStyle(
+                fontSize: AppDesignSystem.fontSizeXs,
+                color: AppDesignSystem.textSecondary,
+              ),
+            ),
           ],
         ),
       ],
