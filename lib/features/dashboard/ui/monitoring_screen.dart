@@ -50,7 +50,7 @@ class MonitoringScreen extends StatelessWidget {
               const SizedBox(width: AppDesignSystem.spacingSm),
               _buildStatusChip('경고', AppDesignSystem.amber600, AppDesignSystem.amberBg),
               const SizedBox(width: AppDesignSystem.spacingSm),
-              _buildStatusChip('오류', AppDesignSystem.red600, AppDesignSystem.amberBg),
+              _buildStatusChip('오류', AppDesignSystem.red600, AppDesignSystem.redBg),
             ],
           ),
           const SizedBox(height: AppDesignSystem.spacingMd),

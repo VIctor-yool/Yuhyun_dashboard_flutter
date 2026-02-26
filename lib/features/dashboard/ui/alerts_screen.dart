@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_design_system.dart';
+import '../../../../shared/widgets/filter_chip.dart';
+import '../model/alert_item.dart';
 
 /// 알림 — 계측 알림 목록 (임계값 초과 등)
 class AlertsScreen extends StatefulWidget {
@@ -10,7 +12,34 @@ class AlertsScreen extends StatefulWidget {
 }
 
 class _AlertsScreenState extends State<AlertsScreen> {
-  String _filter = 'all'; // all, warning, error
+  String _filter = 'all';
+
+  static const _alerts = [
+    AlertItem(
+      title: '센서 A-01 임계값 초과',
+      type: '경고',
+      color: AppDesignSystem.amber600,
+      time: '2분 전',
+    ),
+    AlertItem(
+      title: '센서 B-03 연결 끊김',
+      type: '오류',
+      color: AppDesignSystem.red600,
+      time: '15분 전',
+    ),
+    AlertItem(
+      title: '센서 C-02 정상 복귀',
+      type: '정상',
+      color: AppDesignSystem.emerald600,
+      time: '1시간 전',
+    ),
+    AlertItem(
+      title: '센서 A-02 임계값 근접',
+      type: '경고',
+      color: AppDesignSystem.amber600,
+      time: '2시간 전',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,62 +65,38 @@ class _AlertsScreenState extends State<AlertsScreen> {
       ),
       decoration: BoxDecoration(
         color: AppDesignSystem.cardBg,
-        border: Border(
-          bottom: BorderSide(color: AppDesignSystem.borderLight),
-        ),
+        border: Border(bottom: BorderSide(color: AppDesignSystem.borderLight)),
       ),
       child: Row(
         children: [
-          _buildFilterChip('전체', 'all'),
+          AppFilterChip(label: '전체', isSelected: _filter == 'all', onTap: () => setState(() => _filter = 'all')),
           const SizedBox(width: AppDesignSystem.spacingSm),
-          _buildFilterChip('경고', 'warning'),
+          AppFilterChip(label: '경고', isSelected: _filter == 'warning', onTap: () => setState(() => _filter = 'warning')),
           const SizedBox(width: AppDesignSystem.spacingSm),
-          _buildFilterChip('오류', 'error'),
+          AppFilterChip(label: '오류', isSelected: _filter == 'error', onTap: () => setState(() => _filter = 'error')),
         ],
       ),
     );
   }
 
-  Widget _buildFilterChip(String label, String value) {
-    final isSelected = _filter == value;
-    return GestureDetector(
-      onTap: () => setState(() => _filter = value),
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppDesignSystem.spacingMd,
-          vertical: AppDesignSystem.spacingSm,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected ? AppDesignSystem.selectedBg : AppDesignSystem.hoverBg,
-          borderRadius: AppDesignSystem.borderRadiusLg,
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: AppDesignSystem.fontSizeSm,
-            fontWeight: AppDesignSystem.fontWeightMedium,
-            color: isSelected ? AppDesignSystem.textTitle : AppDesignSystem.textSecondary,
-          ),
-        ),
-      ),
-    );
-  }
-
   List<Widget> _buildAlertList() {
-    final alerts = [
-      _AlertItem('센서 A-01 임계값 초과', '경고', AppDesignSystem.amber600, '2분 전'),
-      _AlertItem('센서 B-03 연결 끊김', '오류', AppDesignSystem.red600, '15분 전'),
-      _AlertItem('센서 C-02 정상 복귀', '정상', AppDesignSystem.emerald600, '1시간 전'),
-      _AlertItem('센서 A-02 임계값 근접', '경고', AppDesignSystem.amber600, '2시간 전'),
-    ];
+    final filtered = _alerts.where((a) {
+      if (_filter == 'all') return true;
+      if (_filter == 'warning') return a.type == '경고';
+      if (_filter == 'error') return a.type == '오류';
+      return false;
+    }).toList();
 
-    return alerts
-        .where((a) => _filter == 'all' || (_filter == 'warning' && a.type == '경고') || (_filter == 'error' && a.type == '오류'))
-        .map((a) => _buildAlertCard(a))
-        .toList();
+    return filtered.map((a) => _buildAlertCard(a)).toList();
   }
 
-  Widget _buildAlertCard(_AlertItem item) {
+  Widget _buildAlertCard(AlertItem item) {
+    final bgColor = item.type == '경고'
+        ? AppDesignSystem.amberBg
+        : item.type == '오류'
+            ? AppDesignSystem.redBg
+            : AppDesignSystem.emeraldBg;
+
     return Container(
       margin: const EdgeInsets.only(bottom: AppDesignSystem.spacingMd),
       padding: const EdgeInsets.all(AppDesignSystem.spacingMd),
@@ -140,11 +145,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
               vertical: AppDesignSystem.spacingXs,
             ),
             decoration: BoxDecoration(
-              color: item.type == '경고'
-                  ? AppDesignSystem.amberBg
-                  : item.type == '오류'
-                      ? AppDesignSystem.redBg
-                      : AppDesignSystem.emeraldBg,
+              color: bgColor,
               borderRadius: AppDesignSystem.borderRadiusLg,
             ),
             child: Text(
@@ -160,13 +161,4 @@ class _AlertsScreenState extends State<AlertsScreen> {
       ),
     );
   }
-}
-
-class _AlertItem {
-  final String title;
-  final String type;
-  final Color color;
-  final String time;
-
-  _AlertItem(this.title, this.type, this.color, this.time);
 }

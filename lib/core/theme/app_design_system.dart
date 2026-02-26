@@ -80,6 +80,8 @@ class AppDesignSystem {
   static const double mobileAppBarHeight = 56.0;
   static const double chartHeight = 280.0;
   static const double breakpointMd = 768.0;
+  static const double dateInputWidth = 260.0;
+  static const double calendarIconSize = 18.0;
 
   // ─── 모서리 ─────────────────────────────────────────────────────
   static const double radiusLg = 8.0;
